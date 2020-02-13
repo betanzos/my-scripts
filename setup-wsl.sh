@@ -42,9 +42,9 @@ echo "GENERAL SETTINGS"
 echo
 echo "Make alias 'll' for 'ls -lha'"
 echo "--------------------------------------------------------------"
-echo " " >> /home/betanzos/.bashrc
-echo " " >> /home/betanzos/.bashrc
-echo "alias ll='ls -lha'" >> /home/betanzos/.bashrc
+echo " " >> ~/.bashrc
+echo " " >> ~/.bashrc
+echo "alias ll='ls -lha'" >> ~/.bashrc
 
 
 # Packages
@@ -115,21 +115,21 @@ apt install -y libgtk-3-0 libglu1-mesa
 echo
 echo "Setting up JAVA_HOME"
 echo "--------------------------------------------------------------"
-echo " " >> /home/betanzos/.bashrc
-echo "JAVA_HOME=/mnt/d/tools/java/adoptopenjdk-11.0.5+10_hotspot-linux" >> /home/betanzos/.bashrc
+echo " " >> ~/.bashrc
+echo "JAVA_HOME=/mnt/d/tools/java/adoptopenjdk-11.0.5+10_hotspot-linux" >> ~/.bashrc
 echo
 echo "Setting up MAVEN_HOME"
 echo "--------------------------------------------------------------"
-echo "MAVEN_HOME=/mnt/d/tools/maven/3.6.3-linux" >> /home/betanzos/.bashrc
+echo "MAVEN_HOME=/mnt/d/tools/maven/3.6.3-linux" >> ~/.bashrc
 echo
 echo "Add JAVA_HOME and MAVEN_HOME to the PATH"
 echo "--------------------------------------------------------------"
-echo "PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$PATH" >> /home/betanzos/.bashrc
+echo "PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$PATH" >> ~/.bashrc
 echo
 echo "Setting up DISPLAY"
 echo "--------------------------------------------------------------"
 echo " "
-echo "DISPLAY=:0" >> /home/betanzos/.bashrc
+echo "DISPLAY=:0" >> ~/.bashrc
 echo
 echo "Applaying changes in ~/.bashrc"
 echo "--------------------------------------------------------------"
