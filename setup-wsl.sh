@@ -125,7 +125,7 @@ echo "MAVEN_HOME=/mnt/d/tools/maven/3.6.3-linux" >> ~/.bashrc
 echo
 echo "Add JAVA_HOME and MAVEN_HOME to the PATH"
 echo "--------------------------------------------------------------"
-echo "PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$PATH" >> ~/.bashrc
+echo "PATH=\$JAVA_HOME/bin:\$MAVEN_HOME/bin:\$PATH" >> ~/.bashrc
 echo
 echo "Setting up DISPLAY"
 echo "--------------------------------------------------------------"
