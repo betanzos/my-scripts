@@ -6,6 +6,8 @@
 # Author         :Eduardo Betanzos Morales
 # Email          :ebetanzos@hotmail.es
 #
+# Usage:         sudo /path/to/setup-wsl.sh
+#
 #
 # Copyright © 2020  Eduardo Betanzos Morales 
 #
