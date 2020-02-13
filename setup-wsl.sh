@@ -131,6 +131,11 @@ echo "--------------------------------------------------------------"
 echo " "
 echo "DISPLAY=:0" >> ~/.bashrc
 echo
+echo "Setting up LIBGL_ALWAYS_INDIRECT"
+echo "--------------------------------------------------------------"
+echo " "
+echo "LIBGL_ALWAYS_INDIRECT=1" >> ~/.bashrc
+echo
 echo "Applaying changes in ~/.bashrc"
 echo "--------------------------------------------------------------"
 . /etc/bash.bashrc
