@@ -57,10 +57,6 @@ echo
 echo "Install binutils"
 echo "--------------------------------------------------------------"
 apt install binutils -y
-echo
-echo "Install neofetch"
-echo "--------------------------------------------------------------"
-apt install neofetch -y
 
 
 # Tools and programs
@@ -68,6 +64,10 @@ apt install neofetch -y
 echo
 echo
 echo "TOOLS AND PROGRAMS"
+echo
+echo "Install neofetch"
+echo "--------------------------------------------------------------"
+apt install neofetch -y
 echo
 echo "Install curl"
 echo "--------------------------------------------------------------"
