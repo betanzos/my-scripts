@@ -29,6 +29,7 @@ echo
 echo "Packages list"
 echo "--------------------------------------------------------------"
 apt update
+echo
 echo "Installed packages"
 echo "--------------------------------------------------------------"
 apt upgrade -y
@@ -128,12 +129,10 @@ echo "PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$PATH" >> ~/.bashrc
 echo
 echo "Setting up DISPLAY"
 echo "--------------------------------------------------------------"
-echo " "
 echo "DISPLAY=:0" >> ~/.bashrc
 echo
 echo "Setting up LIBGL_ALWAYS_INDIRECT"
 echo "--------------------------------------------------------------"
-echo " "
 echo "LIBGL_ALWAYS_INDIRECT=1" >> ~/.bashrc
 echo
 echo "Applaying changes in ~/.bashrc"
