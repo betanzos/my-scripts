@@ -48,6 +48,11 @@ echo "--------------------------------------------------------------"
 echo " " >> ~/.bashrc
 echo " " >> ~/.bashrc
 echo "alias ll='ls -lha'" >> ~/.bashrc
+echo
+echo "Specify automount with metadata option"
+echo "--------------------------------------------------------------"
+echo "[automount]" >> /etc/wsl.conf
+echo "options=metadata" >> /etc/wsl.conf
 
 
 # Packages
