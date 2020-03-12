@@ -88,6 +88,14 @@ echo "Install youtube-dl"
 echo "--------------------------------------------------------------"
 curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl
 chmod a+rx /usr/local/bin/youtube-dl
+echo
+echo "Install zip"
+echo "--------------------------------------------------------------"
+apt install zip -y
+echo
+echo "Install unzip"
+echo "--------------------------------------------------------------"
+apt install unzip -y
 
 
 # Dev environment
@@ -111,6 +119,29 @@ git config --global alias.lone 'log --oneline'
 git config --global alias.lds 'log --pretty=format:"%C(yellow)%h\ %ad%Cred%d\ %Creset%s%Cblue\ [%cn]" --decorate --date=short'
 git config --global alias.ldr 'log --pretty=format:"%C(yellow)%h\ %ad%Cred%d\ %Creset%s%Cblue\ [%cn]" --decorate --date=relative'
 
+## SDKMAN
+echo
+echo "Install sdkman"
+echo "---------------------------------------------------------------------"
+curl -s "https://get.sdkman.io" | bash
+chmod -R 777 ~/.sdkman/var
+chmod -R 777 ~/.sdkman/bin
+. ~/.sdkman/bin/sdkman-init.sh
+. /etc/bash.bashrc
+
+## Install latest LTS JDK
+echo
+echo "Install latest LTS SDK"
+echo "---------------------------------------------------------------------"
+sdk install java
+
+## Install latest Apache Maven
+echo
+echo "Install latest Apache Maven"
+echo "---------------------------------------------------------------------"
+sdk install maven
+cp /mnt/d/tools/maven/settings.xml ~/.sdkman/candidates/maven/current/conf/settings.xml
+
 ## Packages for run JavaFX applications
 echo
 echo "Install needed packages for run JavaFX applications"
@@ -120,19 +151,6 @@ apt install -y libgtk-3-0 libglu1-mesa
 #apt install -y libgtk-3-0 libgl1-mesa-glx libx11-6 x11proto-core-dev 
 
 ## Environment variables
-echo
-echo "Setting up JAVA_HOME"
-echo "--------------------------------------------------------------"
-echo " " >> ~/.bashrc
-echo "JAVA_HOME=/mnt/d/tools/java/adoptopenjdk-11.0.5+10_hotspot-linux" >> ~/.bashrc
-echo
-echo "Setting up MAVEN_HOME"
-echo "--------------------------------------------------------------"
-echo "MAVEN_HOME=/mnt/d/tools/maven/3.6.3-linux" >> ~/.bashrc
-echo
-echo "Add JAVA_HOME and MAVEN_HOME to the PATH"
-echo "--------------------------------------------------------------"
-echo "PATH=\$JAVA_HOME/bin:\$MAVEN_HOME/bin:\$PATH" >> ~/.bashrc
 echo
 echo "Setting up DISPLAY"
 echo "--------------------------------------------------------------"
