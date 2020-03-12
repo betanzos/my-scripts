@@ -124,8 +124,7 @@ echo
 echo "Install sdkman"
 echo "---------------------------------------------------------------------"
 curl -s "https://get.sdkman.io" | bash
-chmod -R 777 ~/.sdkman/var
-chmod -R 777 ~/.sdkman/bin
+chmod -R 777 ~/.sdkman
 . ~/.sdkman/bin/sdkman-init.sh
 . /etc/bash.bashrc
 
