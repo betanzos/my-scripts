@@ -45,9 +45,9 @@ echo "GENERAL SETTINGS"
 echo
 echo "Make alias 'll' for 'ls -lha'"
 echo "--------------------------------------------------------------"
-echo " " >> ~/.bashrc
-echo " " >> ~/.bashrc
-echo "alias ll='ls -lha'" >> ~/.bashrc
+echo " " >> $HOME/.bashrc
+echo " " >> $HOME/.bashrc
+echo "alias ll='ls -lha'" >> $HOME/.bashrc
 echo
 echo "Specify automount with metadata option"
 echo "--------------------------------------------------------------"
@@ -124,7 +124,7 @@ echo
 echo "Install sdkman"
 echo "---------------------------------------------------------------------"
 curl -s "https://get.sdkman.io" | bash
-chmod -R 777 ~/.sdkman
+chmod -R 777 $HOME/.sdkman
 source $HOME/.sdkman/bin/sdkman-init.sh
 
 ## Install latest LTS JDK
@@ -152,13 +152,13 @@ apt install -y libgtk-3-0 libglu1-mesa
 echo
 echo "Setting up DISPLAY"
 echo "--------------------------------------------------------------"
-echo "DISPLAY=:0" >> ~/.bashrc
+echo "DISPLAY=:0" >> $HOME/.bashrc
 echo
 echo "Setting up LIBGL_ALWAYS_INDIRECT"
 echo "--------------------------------------------------------------"
-echo "LIBGL_ALWAYS_INDIRECT=1" >> ~/.bashrc
+echo "LIBGL_ALWAYS_INDIRECT=1" >> $HOME/.bashrc
 echo
-echo "Applaying changes in ~/.bashrc"
+echo "Applaying changes in $HOME/.bashrc"
 echo "--------------------------------------------------------------"
 . /etc/bash.bashrc
 
