@@ -125,8 +125,7 @@ echo "Install sdkman"
 echo "---------------------------------------------------------------------"
 curl -s "https://get.sdkman.io" | bash
 chmod -R 777 ~/.sdkman
-. ~/.sdkman/bin/sdkman-init.sh
-. /etc/bash.bashrc
+source $HOME/.sdkman/bin/sdkman-init.sh
 
 ## Install latest LTS JDK
 echo
@@ -139,7 +138,7 @@ echo
 echo "Install latest Apache Maven"
 echo "---------------------------------------------------------------------"
 sdk install maven
-cp /mnt/d/tools/maven/settings.xml ~/.sdkman/candidates/maven/current/conf/settings.xml
+cp /mnt/d/tools/maven/settings.xml $HOME/.sdkman/candidates/maven/current/conf/settings.xml
 
 ## Packages for run JavaFX applications
 echo
