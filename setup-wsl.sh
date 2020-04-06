@@ -167,7 +167,7 @@ apt install -y libgtk-3-0 libglu1-mesa
 echo
 echo "Applaying changes in $HOME/.bashrc"
 echo "--------------------------------------------------------------"
-. /etc/bash.bashrc
+. $HOME/.bashrc
 
 echo
 echo
