@@ -140,7 +140,7 @@ echo "Install sdkman"
 echo "---------------------------------------------------------------------"
 curl -s "https://get.sdkman.io" | bash
 chmod -R 777 $HOME/.sdkman
-source $HOME/.sdkman/bin/sdkman-init.sh
+. "$HOME/.sdkman/bin/sdkman-init.sh"
 
 ## Install latest LTS JDK
 echo
