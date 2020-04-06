@@ -1,6 +1,6 @@
 #!/bin/bash
 #========================================================================
-# Script name    :setup-env.sh
+# Script name    :setup-wsl.sh
 # Description    :This script is for setting up my dev environment in 
 #                 Debian-based WSL distros
 # Author         :Eduardo Betanzos Morales
