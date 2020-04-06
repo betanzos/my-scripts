@@ -6,7 +6,7 @@
 # Author         :Eduardo Betanzos Morales
 # Email          :ebetanzos@hotmail.es
 #
-# Usage:         sudo /path/to/setup-wsl.sh
+# Usage:         sudo sh -c "$(curl -sSL https://raw.githubusercontent.com/betanzos/my-scripts/master/setup-wsl.sh)"
 #
 #
 # Copyright © 2020  Eduardo Betanzos Morales 
