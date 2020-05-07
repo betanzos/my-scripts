@@ -1,0 +1,22 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Visual Studio Code
+.settings/
+.classpath
+.project
+.vscode/
+
+# NetBeans
+build/
+dist/
+nbbuild/
+nbdist/
+
+# Visual Studio
+.vs/
+*.user
+Release/
+Debug/
+x64/

@@ -128,11 +128,14 @@ git config --global user.name "Eduardo Betanzos"
 git config --global user.email "ebetanzos@hotmail.es"
 git config --global core.autocrlf input
 git config --global core.editor nano
+git config --global core.excludesfile ~/.gitignore_global
 git config --global alias.st status
 git config --global alias.last 'log -1 HEAD'
 git config --global alias.lone 'log --oneline'
 git config --global alias.lds 'log --pretty=format:"%C(yellow)%h\ %ad%Cred%d\ %Creset%s%Cblue\ [%cn]" --decorate --date=short'
 git config --global alias.ldr 'log --pretty=format:"%C(yellow)%h\ %ad%Cred%d\ %Creset%s%Cblue\ [%cn]" --decorate --date=relative'
+### Download global .gitignore
+curl -sS https://raw.githubusercontent.com/betanzos/my-scripts/master/git/.gitignore_global -o $HOME/.gitignore_global
 
 ## SDKMAN
 echo
