@@ -104,6 +104,10 @@ echo "  - Setting up LIBGL_ALWAYS_INDIRECT"
 #    --------------------------------------------------------------
 echo "LIBGL_ALWAYS_INDIRECT=1" >> $ENV_DEST
 
+echo "  - Setting up GPG_TTY"
+#    --------------------------------------------------------------
+echo "GPG_TTY=$(tty)" >> $ENV_DEST
+
 
 # Packages
 #---------------------------------------------------------------
