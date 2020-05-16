@@ -65,11 +65,15 @@ echo
 echo
 echo "GENERAL SETTINGS"
 echo
-echo "Make alias 'll' for 'ls -lha'"
-echo "--------------------------------------------------------------"
-echo " " >> $HOME/.bashrc
-echo " " >> $HOME/.bashrc
-echo "alias ll='ls -lha'" >> $HOME/.bashrc
+ALIAS_DEST=$HOME/.profile
+echo "" >> $ALIAS_DEST
+echo "" >> $ALIAS_DEST
+
+echo "  - Make alias 'll' as 'ls -lha'"
+#    --------------------------------------------------------------
+echo "" >> $ALIAS_DEST
+echo "" >> $ALIAS_DEST
+echo "alias ll='ls -lha'" >> $ALIAS_DEST
 echo
 echo "  - Specify automount with metadata option"
 #    --------------------------------------------------------------
@@ -86,13 +90,19 @@ echo
 echo
 echo "ENVIRONMENT VARIABLES"
 echo
-echo "Setting up DISPLAY"
-echo "--------------------------------------------------------------"
-echo "DISPLAY=:0" >> $HOME/.bashrc
+ENV_DEST=$HOME/.profile
+echo "" >> $ENV_DEST
+echo "" >> $ENV_DEST
+
+echo "[INFO] Environment variables will be defined in $ENV_DEST"
 echo
-echo "Setting up LIBGL_ALWAYS_INDIRECT"
-echo "--------------------------------------------------------------"
-echo "LIBGL_ALWAYS_INDIRECT=1" >> $HOME/.bashrc
+echo "  - Setting up DISPLAY"
+#    --------------------------------------------------------------
+echo "DISPLAY=:0" >> $ENV_DEST
+
+echo "  - Setting up LIBGL_ALWAYS_INDIRECT"
+#    --------------------------------------------------------------
+echo "LIBGL_ALWAYS_INDIRECT=1" >> $ENV_DEST
 
 
 # Packages
