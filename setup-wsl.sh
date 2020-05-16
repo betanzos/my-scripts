@@ -6,7 +6,7 @@
 # Author         :Eduardo Betanzos Morales
 # Email          :ebetanzos@hotmail.es
 #
-# Usage:         sudo sh -c "$(curl -sSL https://raw.githubusercontent.com/betanzos/my-scripts/master/setup-wsl.sh)"
+# Usage:         sh -c "$(curl -sSL https://raw.githubusercontent.com/betanzos/my-scripts/master/setup-wsl.sh)"
 #
 #
 # Copyright © 2020  Eduardo Betanzos Morales 
@@ -24,17 +24,39 @@
 # limitations under the License.
 #========================================================================
 
+
+# Prevent run as root because since Ubuntu 20.04 when use root to execute
+# the script $HOME points to /root instead current user home dir
+if [[ $EUID -eq 0 ]]; then
+    echo "[ERROR] This script should not be run using Sudo or as the root user"
+	echo
+    exit 1
+fi
+
+# Show sudo login in terminal
+sudo -i echo
+
+if [ ! $? -eq 0 ]; then
+    echo
+    echo "[ERROR] Bad password"
+    echo
+    exit 1
+fi
+
+echo
+
+
 # Update system packages
 #---------------------------------------------------------------
 echo "UPDATE SYSTEM"
 echo
 echo "Packages list"
 echo "--------------------------------------------------------------"
-apt update
+sudo apt update
 echo
 echo "Installed packages"
 echo "--------------------------------------------------------------"
-apt upgrade -y
+sudo apt upgrade -y
 
 
 # General settings
@@ -49,10 +71,13 @@ echo " " >> $HOME/.bashrc
 echo " " >> $HOME/.bashrc
 echo "alias ll='ls -lha'" >> $HOME/.bashrc
 echo
-echo "Specify automount with metadata option"
-echo "--------------------------------------------------------------"
+echo "  - Specify automount with metadata option"
+#    --------------------------------------------------------------
+sudo touch /etc/wsl.conf
+sudo chmod 666 /etc/wsl.conf
 echo "[automount]" >> /etc/wsl.conf
 echo "options=metadata" >> /etc/wsl.conf
+sudo chmod 644 /etc/wsl.conf
 
 
 # Environment variables
@@ -78,7 +103,7 @@ echo "INSTALL PACKAGES"
 echo
 echo "Install binutils"
 echo "--------------------------------------------------------------"
-apt install binutils -y
+sudo apt install binutils -y
 
 
 # Tools and programs
@@ -89,28 +114,28 @@ echo "TOOLS AND PROGRAMS"
 echo
 echo "Install neofetch"
 echo "--------------------------------------------------------------"
-apt install neofetch -y
+sudo apt install neofetch -y
 echo
 echo "Install curl"
 echo "--------------------------------------------------------------"
-apt install curl -y
+sudo apt install curl -y
 echo
 echo "Install ffmpeg"
 echo "--------------------------------------------------------------"
-apt install ffmpeg -y
+sudo apt install ffmpeg -y
 echo
 echo "Install youtube-dl"
 echo "--------------------------------------------------------------"
-curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl
-chmod a+rx /usr/local/bin/youtube-dl
+sudo curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl
+sudo chmod a+rx /usr/local/bin/youtube-dl
 echo
 echo "Install zip"
 echo "--------------------------------------------------------------"
-apt install zip -y
+sudo apt install zip -y
 echo
 echo "Install unzip"
 echo "--------------------------------------------------------------"
-apt install unzip -y
+sudo apt install unzip -y
 
 
 # Dev environment
@@ -120,7 +145,7 @@ echo
 ## Git
 echo "Install git"
 echo "--------------------------------------------------------------"
-apt install git -y
+sudo apt install git -y
 echo
 echo "Setting up git"
 echo "--------------------------------------------------------------"
@@ -163,7 +188,7 @@ cp /mnt/d/tools/maven/settings.xml $HOME/.sdkman/candidates/maven/current/conf/s
 echo
 echo "Install needed packages for run JavaFX applications"
 echo "---------------------------------------------------------------------"
-apt install -y libgtk-3-0 libglu1-mesa
+sudo apt install -y libgtk-3-0 libglu1-mesa
 # According JavaFX official site (how to build javafx)
 #apt install -y libgtk-3-0 libgl1-mesa-glx libx11-6 x11proto-core-dev 
 
