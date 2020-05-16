@@ -7,6 +7,7 @@
 # Email          :ebetanzos@hotmail.es
 #
 # Usage:         sh -c "$(curl -sSL https://raw.githubusercontent.com/betanzos/my-scripts/master/setup-wsl.sh)"
+#                      [<maven-settings-file>]
 #
 #
 # Copyright © 2020  Eduardo Betanzos Morales 
@@ -201,7 +202,11 @@ echo
 echo "Install latest Apache Maven"
 echo "---------------------------------------------------------------------"
 sdk install maven
-cp /mnt/d/tools/maven/settings.xml $HOME/.sdkman/candidates/maven/current/conf/settings.xml
+MVN_SETTINGS="/mnt/d/tools/global_settings/maven/settings-wsl.xml"
+if [[ $1 && -f $1 ]]; then
+    MVN_SETTINGS=$1
+fi
+cp $MVN_SETTINGS $HOME/.sdkman/candidates/maven/current/conf/settings.xml
 
 ## Packages for run JavaFX applications
 echo
