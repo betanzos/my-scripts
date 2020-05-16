@@ -5,7 +5,7 @@
 # Author         :Eduardo Betanzos Morales
 # Email          :ebetanzos@hotmail.es
 #
-# Usage:         sudo sh -c "$(curl -sSL https://raw.githubusercontent.com/betanzos/my-scripts/master/zsh/setup-zsh-zim-p10k.sh)"
+# Usage:         sh -c "$(curl -sSL https://raw.githubusercontent.com/betanzos/my-scripts/master/zsh/setup-zsh-zim-p10k.sh)"
 #
 #
 # Copyright © 2020  Eduardo Betanzos Morales 
@@ -27,7 +27,7 @@ install_all() {
 	# Install ZSH
 	echo "Install ZSH"
 	echo "--------------------------------------------------------------"
-	apt install zsh -y
+	sudo apt install zsh -y
 	echo
 	echo "ZSH has been installed!"
 	echo "Remember make it the default shell using the following command 'chsh -s $(which zsh)'"
@@ -38,8 +38,8 @@ install_all() {
 	echo "Install ZIM"
 	echo "--------------------------------------------------------------"
 	curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh
-	chmod 777 -R .zim
-	chmod 777 .z*
+	sudo chmod 777 -R .zim
+	sudo chmod 777 .z*
 
 	# Install powerlevel10k ZSH theme in ZIM
 	echo
@@ -63,9 +63,29 @@ install_all() {
 }
 
 main() {
+    # Prevent run as root because since Ubuntu 20.04 when use root to execute
+    # the script $HOME points to /root instead current user home dir
+    if [[ $EUID -eq 0 ]]; then
+        echo "[ERROR] This script should not be run using Sudo or as the root user"
+	    echo
+        exit 1
+    fi
+
 	command -v apt >/dev/null 2>&1 || { echo '`apt` command not found. Aborting.'; exit 1; }
 	command -v curl >/dev/null 2>&1 || { echo '`curl` command not found. Aborting.'; exit 1; }
 	command -v git >/dev/null 2>&1 || { echo '`git` command not found. Aborting.'; exit 1; }
+
+    # Show sudo login in terminal
+    sudo -i echo
+
+    if [ ! $? -eq 0 ]; then
+        echo
+        echo "[ERROR] Bad password"
+        echo
+        exit 1
+    fi
+
+    echo
 
 	install_all
 }
