@@ -210,14 +210,10 @@ echo "---------------------------------------------------------------------"
 sudo apt install -y libgtk-3-0 libglu1-mesa
 # According JavaFX official site (how to build javafx)
 #apt install -y libgtk-3-0 libgl1-mesa-glx libx11-6 x11proto-core-dev 
-
-## Source changes
-echo
-echo "Applaying changes in $HOME/.bashrc"
-echo "--------------------------------------------------------------"
-. $HOME/.bashrc
-
 echo
 echo
 echo "-------------------------------------------------------------------"
-echo "FINISH"
+echo "FINISH!!"
+echo
+echo "Please open a new terminal"
+echo
