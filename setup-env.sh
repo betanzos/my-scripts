@@ -1,16 +1,20 @@
 #! /bin/bash
 #========================================================================
 # Script name    :setup-env.sh
-# Description    :This script is for setting up my dev environment in 
+# Description    :This script is for setting up my dev environment in
 #                 Debian-based distros
-#                 Docker instalation only work in Ubuntu or Debain
+#
+#                 Notes:
+#                  - For Ubuntu 20.04 and higher
+#                  - Docker instalation only work in Ubuntu or Debain
+#
 # Author         :Eduardo Betanzos Morales
 # Email          :ebetanzos@hotmail.es
 #
-# Usage:         sudo /path/to/setup-env.sh
+# Usage:         sh -c "$(curl -sSL https://raw.githubusercontent.com/betanzos/my-scripts/master/setup-env.sh)"
 #
 #
-# Copyright © 2020  Eduardo Betanzos Morales 
+# Copyright © 2020  Eduardo Betanzos Morales
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -26,115 +30,183 @@
 #========================================================================
 
 
+# Prevent run as root because since Ubuntu 20.04 when use root to execute
+# the script $HOME points to /root instead current user home dir
+if [[ $EUID -eq 0 ]]; then
+    echo "[ERROR] This script should not be run using Sudo or as the root user"
+	echo
+    exit 1
+fi
+
+# Show sudo login in terminal
+sudo -i echo
+
+if [ ! $? -eq 0 ]; then
+    echo
+    echo "[ERROR] Bad password"
+    echo
+    exit 1
+fi
+
+echo
+
+
 # Update system
 #---------------------------------------------------------------
 echo "Update system"
 echo "    Packages list"
 echo "    --------------------------------------------------------------"
-apt update
+sudo apt update
+echo
 echo "    Installed packages"
 echo "    --------------------------------------------------------------"
-apt upgrade -y
+sudo apt upgrade -y
 
 
 # Tools and programs
 #---------------------------------------------------------------
-echo "Install tools and programs"
+echo
+echo
+echo "TOOLS AND PROGRAMS"
 echo "    Install curl"
 echo "    --------------------------------------------------------------"
-apt install curl -y
+sudo apt install curl -y
+echo
 echo "    Install nano"
 echo "    --------------------------------------------------------------"
-apt install nano -y
-echo "    Install gnome-tweaks"
-echo "    --------------------------------------------------------------"
-apt install gnome-tweaks -y
-echo "    Install dconf-editor"
-echo "    --------------------------------------------------------------"
-apt install dconf-editor -y
+sudo apt install nano -y
+echo
 echo "    Install vlc"
 echo "    --------------------------------------------------------------"
-apt install vlc -y
+sudo apt install vlc -y
+echo
 echo "    Install ffmpeg"
 echo "    --------------------------------------------------------------"
-apt install ffmpeg -y
+sudo apt install ffmpeg -y
+echo
 echo "    Install qbittorrent"
 echo "    --------------------------------------------------------------"
-apt install qbittorrent -y
+sudo apt install qbittorrent -y
+echo
 echo "    Install youtube-dl"
 echo "    --------------------------------------------------------------"
 curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl
-chmod a+rx /usr/local/bin/youtube-dl
-echo "    Install gnome-boxes"
-echo "    --------------------------------------------------------------"
-apt install gnome-boxes -y
+sudo chmod a+rx /usr/local/bin/youtube-dl
+echo
 echo "    Install gimp"
 echo "    --------------------------------------------------------------"
-sudo add-apt-repository ppa:otto-kesselgulasch/gimp
-sudo apt update
 sudo apt install gimp -y
+
+
+## Tools only for GNOME
+if [ "${XDG_CURRENT_DESKTOP,,}" = "gnome" ]; then
+    echo
+    echo "    Install gnome-tweaks"
+    echo "    --------------------------------------------------------------"
+    sudo apt install gnome-tweaks -y
+    echo
+    echo "    Install dconf-editor"
+    echo "    --------------------------------------------------------------"
+    sudo apt install dconf-editor -y
+    echo
+    echo "    Install gnome-boxes"
+    echo "    --------------------------------------------------------------"
+    sudo apt install gnome-boxes -y
+fi
 
 
 # Dev tools
 #---------------------------------------------------------------
-echo "Setting up dev environment"
+echo
+echo
+echo "DEV ENVIRONMENT"
+echo
 ## Git
-echo "    Install git"
-echo "    --------------------------------------------------------------"
-apt install git -y
-echo "        Setting up git"
-echo "    --------------------------------------------------------------"
+echo "Install git"
+echo "--------------------------------------------------------------"
+sudo apt install git -y
+echo
+echo "Setting up git"
+echo "--------------------------------------------------------------"
+echo "  - Global configuration"
 git config --global user.name "Eduardo Betanzos"
 git config --global user.email "ebetanzos@hotmail.es"
 git config --global core.autocrlf input
 git config --global core.editor nano
 git config --global core.excludesfile ~/.gitignore_global
+git config --global core.fileMode false
+echo "  - Making aliases"
 git config --global alias.st status
 git config --global alias.last 'log -1 HEAD'
 git config --global alias.lone 'log --oneline'
 git config --global alias.lds 'log --pretty=format:"%C(yellow)%h\ %ad%Cred%d\ %Creset%s%Cblue\ [%cn]" --decorate --date=short'
 git config --global alias.ldr 'log --pretty=format:"%C(yellow)%h\ %ad%Cred%d\ %Creset%s%Cblue\ [%cn]" --decorate --date=relative'
 ### Download global .gitignore
+echo "  - Global ignore rules"
 curl -sS https://raw.githubusercontent.com/betanzos/my-scripts/master/git/.gitignore_global -o $HOME/.gitignore_global
 
+## SDKMAN
+echo
+echo "Install sdkman"
+echo "---------------------------------------------------------------------"
+curl -s "https://get.sdkman.io" | bash
+sudo chmod -R 777 $HOME/.sdkman
+. $HOME/.sdkman/bin/sdkman-init.sh
+
+## Install latest LTS JDK
+echo
+echo "Install latest LTS JDK"
+echo "---------------------------------------------------------------------"
+sdk install java
+
+## Install latest Apache Maven
+echo
+echo "Install latest Apache Maven"
+echo "---------------------------------------------------------------------"
+sdk install maven
+
 ## Docker
-echo "    Install docker"
-echo "    --------------------------------------------------------------"
+echo
+echo "Install docker"
+echo "--------------------------------------------------------------"
 sudo apt remove docker docker-engine docker.io containerd runc
-sudo apt update
-sudo apt install -y apt-transport-https ca-certificates software-properties-common
 
 if cat /etc/*release | grep ^NAME | grep Debian; then
-    echo "        Preparing docker instalation for Debian"
+    sudo apt install -y apt-transport-https ca-certificates software-properties-common
+    echo "    Preparing docker instalation for Debian"
     echo "--------------------------------------------------------------"
-    apt install -y gnupg2
+    sudo apt install -y gnupg2
     curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
-    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"	
-    echo "        END DEBIAN CONFIG ------------------------------------"
+    sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+    echo "    END DEBIAN CONFIG ------------------------------------"
+    sudo apt update
+    sudo apt install -y docker-ce
 elif cat /etc/*release | grep ^NAME | grep Ubuntu; then
-    echo "        Preparing docker instalation for Ubuntu"
-    echo "--------------------------------------------------------------"
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"	
-    echo "        END UBUNTU CONFIG ------------------------------------"
+    sudo apt install -y docker.io
+    sudo usermod -aG docker $USER
 fi
 
-sudo apt update
-sudo apt install -y docker-ce
+
 ### Run my containers
-echo "        Docker containers"
-echo "    --------------------------------------------------------------"
+echo
+echo "Docker containers"
+echo "--------------------------------------------------------------"
 #### Postgres 9.6
-echo "            - postgres9.6"
-echo "    --------------------------------------------------------------"
+echo
+echo "  - postgres9.6"
+echo "  --------------------------------------------------------------"
 docker run --name postgres9.6 -e POSTGRES_PASSWORD=postgres -d -p 5432:5432 postgres:9.6-alpine
 
 ## pgAdmin III
-echo "    Install pgadminIII"
-echo "    --------------------------------------------------------------"
-apt install -y pgadmin3 --no-install-recommends
+echo
+echo "Install pgadminIII"
+echo "--------------------------------------------------------------"
+sudo apt install -y pgadmin3 --no-install-recommends
 
 echo
 echo
 echo "-------------------------------------------------------------------"
 echo "SUCCESSFUL!!"
+echo
+echo "Important!"
+echo "You need to restar the computer for some changes take effect"
