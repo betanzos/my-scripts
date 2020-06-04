@@ -179,6 +179,7 @@ git config --global alias.last 'log -1 HEAD'
 git config --global alias.lone 'log --oneline'
 git config --global alias.lds 'log --pretty=format:"%C(yellow)%h\ %ad%Cred%d\ %Creset%s%Cblue\ [%an]" --decorate --date=short'
 git config --global alias.ldr 'log --pretty=format:"%C(yellow)%h\ %ad%Cred%d\ %Creset%s%Cblue\ [%an]" --decorate --date=relative'
+git config --global alias.tree 'log --graph --oneline --all'
 ### Download global .gitignore
 echo "  - Global ignore rules"
 curl -sS https://raw.githubusercontent.com/betanzos/my-scripts/master/git/.gitignore_global -o $HOME/.gitignore_global
