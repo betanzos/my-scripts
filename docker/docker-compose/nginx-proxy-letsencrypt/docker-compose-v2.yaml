@@ -1,0 +1,49 @@
+version: '3.3'
+
+services:
+  nginx-proxy:
+    image: nginxproxy/nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - /root/reverse-proxy/certs:/etc/nginx/certs
+      - /root/reverse-proxy/vhost:/etc/nginx/vhost.d
+      - /root/reverse-proxy/html:/usr/share/nginx/html
+    labels:
+      com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: "true"
+
+  acme-companion:
+    image: nginxproxy/acme-companion
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /root/reverse-proxy/certs:/etc/nginx/certs
+      - /root/reverse-proxy/vhost:/etc/nginx/vhost.d
+      - /root/reverse-proxy/html:/usr/share/nginx/html
+      - /root/reverse-proxy/acme:/etc/acme.sh
+    environment:
+      - DEFAULT_EMAIL=me@email.com
+
+
+  www1:
+    image: httpd:2.4
+    volumes:
+      - /root/index1.html:/usr/local/apache2/htdocs/index.html
+    environment:
+      - VIRTUAL_HOST=myhost.com
+      - LETSENCRYPT_HOST=myhost.com
+      - LETSENCRYPT_EMAIL=me@email.com
+      - VIRTUAL_PATH=/one
+      - VIRTUAL_DEST=/
+
+  www2:
+    image: httpd:2.4
+    volumes:
+      - /root/index2.html:/usr/local/apache2/htdocs/index.html
+    environment:
+      - VIRTUAL_HOST=myhost.com
+      - LETSENCRYPT_HOST=myhost.com
+      - LETSENCRYPT_EMAIL=me@email.com
+      - VIRTUAL_PATH=/two
+      - VIRTUAL_DEST=/
